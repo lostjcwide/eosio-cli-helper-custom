@@ -1,0 +1,14 @@
+#!/bin/bash
+HELPER_DIR=$(cd `dirname $0` && pwd)
+contract_dir=$(pwd)
+dir=$(pwd)
+IFS='/' read -r -a array <<< "$dir"
+contract_name="${array[-1]}"
+echo "PWD "$(pwd)
+export LD_LIBRARY_PATH=/home/okayjava/eos/eos/contracts/eosiolib:/usr/local/eosio/lib:$LD_LIBRARY_PATH
+export PATH=$PATH:/home/okayjava/eos/eos/contracts/eosiolib:/usr/local/eosio/bin
+
+cd ${HELPER_DIR}
+./00.unlock.sh
+./cleos.sh set contract eos1okayjava ${contract_dir}
+cd ${OLDPWD}

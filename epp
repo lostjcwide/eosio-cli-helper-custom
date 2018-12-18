@@ -1,0 +1,15 @@
+#!/bin/bash
+dir=$(pwd)
+IFS='/' read -r -a array <<< ${dir}
+
+for a in $array
+do
+	#contract_name="${array[-1]}"
+	contract_name=$a
+done
+
+export LD_LIBRARY_PATH=~/eos/eos/contracts/eosiolib:/usr/local/eosio/lib:$LD_LIBRARY_PATH
+export PATH=$PATH:~/eos/eos/contracts/eosiolib:/usr/local/eosio/bin
+time eosiocpp -o ${contract_name}.wast ${contract_name}.cpp
+time eosiocpp -g ${contract_name}.abi ${contract_name}.cpp
+
