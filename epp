@@ -8,8 +8,12 @@ do
 	contract_name=$a
 done
 
-export LD_LIBRARY_PATH=~/eos/eos/contracts/eosiolib:/usr/local/eosio/lib:$LD_LIBRARY_PATH
-export PATH=$PATH:~/eos/eos/contracts/eosiolib:/usr/local/eosio/bin
-time eosiocpp -o ${contract_name}.wast ${contract_name}.cpp
-time eosiocpp -g ${contract_name}.abi ${contract_name}.cpp
+export LD_LIBRARY_PATH=~/eos/contracts/eosiolib:/usr/local/eosio/lib:$LD_LIBRARY_PATH
+export PATH=$PATH:~/eos/contracts/eosiolib:/usr/local/eosio/bin
 
+#2018-12-18 Used since version 1.5 update
+/usr/local/Cellar/eosio.cdt/1.4.1/bin/eosio-cpp -o ${contract_name}.wasm ${contract_name}.cpp --abigen
+
+#2018-12-18 Not used since version 1.5 update
+#time eosiocpp -o ${contract_name}.wast ${contract_name}.cpp
+#time eosiocpp -g ${contract_name}.abi ${contract_name}.cpp
