@@ -16,6 +16,8 @@ KEOSD_CONFIG_DIR=$KEOSD_DIR"/config"
 KEOSD_DATA_DIR=$KEOSD_DIR"/data"
 KEOSD_LOG_DIR=$KEOSD_DIR"/log"
 
+## Contract complie path
+EPP_DIR=$HOME"/eos/contracts"
 
 ## Connection Information
 ## Addr for P2P endpoint

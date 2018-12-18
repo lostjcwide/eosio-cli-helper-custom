@@ -1,0 +1,28 @@
+#!/bin/bash
+CONFIGURATION_SHELL_NAME=$(pwd)"/configuration_info.sh"
+
+if [ ! -f $CONFIGURATION_SHELL_NAME ]; then
+    printf "Cannot find %s\n" $CONFIGURATION_SHELL_NAME
+    exit 1;
+fi
+
+. $CONFIGURATION_SHELL_NAME
+
+dir=$(pwd)
+IFS='/' read -r -a array <<< ${dir}
+
+for a in $array
+do
+        #contract_name="${array[-1]}"
+        contract_name=$a
+done
+
+export LD_LIBRARY_PATH=~/eos/contracts/eosiolib:/usr/local/eosio/lib:$LD_LIBRARY_PATH
+export PATH=$PATH:~/eos/contracts/eosiolib:/usr/local/eosio/bin
+
+cd $EPP_DIR/$1
+
+/usr/local/Cellar/eosio.cdt/1.4.1/bin/eosio-cpp -o $1.wasm $1.cpp --abigen
+
+#time eosio-cpp -o ${contract_name}.wast ${contract_name}.cpp
+#time eosio-cpp -g ${contract_name}.abi ${contract_name}.cpp
